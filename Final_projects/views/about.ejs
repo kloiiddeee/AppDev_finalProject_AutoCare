@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+  
+    <header class="hero">
+        <nav class="navbar">
+            <div class="logo">AutoCare</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contacts">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+
+        <div class="overlay">
+            <h1>About Us</h1>
+            <p>Driven by Excellence, Fueled by Care.</p>
+        </div>
+    </header>
+
+   
+    <section class="about">
+        <div class="container">
+            <h2>Welcome to AutoCare</h2>
+            <p>
+                Welcome to Sibale Island, where breathtaking landscapes, rich history, and vibrant culture come together to create unforgettable experiences. 
+                Our destination is a hidden gem, offering something for every traveler—whether you're seeking adventure, relaxation, or a taste of local tradition.
+            </p>
+        </div>
+    </section>
+
+  
+    <section class="mission">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p>
+                At Sibale Island, we’re passionate about showcasing the natural beauty and unique charm of our region. 
+                From scenic mountains and pristine beaches to historic landmarks and local festivals, we aim to provide visitors with an authentic and immersive experience. 
+                Our mission is to make your stay as memorable as possible by offering a variety of activities, accommodations, and services tailored to your needs.
+            </p>
+        </div>
+    </section>
+
+    
+    <section class="sustainability">
+        <div class="container">
+            <h2>Sustainable Tourism</h2>
+            <p>
+                We believe in responsible and sustainable tourism, working closely with local communities to preserve the environment and celebrate our cultural heritage. 
+                Whether you're here for a family vacation, a romantic getaway, or an adventurous solo trip, our team is dedicated to helping you discover the best our destination has to offer.
+            </p>
+        </div>
+    </section>
+
+   
+    <section class="cta">
+        <div class="container">
+            <h2>Explore the Wonder</h2>
+            <p>
+                Join us and explore a world of wonder, where every moment becomes a cherished memory. We can’t wait to welcome you!
+            </p>
+        </div>
+    </section>
+
+<!--........................Footer........................-->   <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>Copyright &copy; 2024, IT students. All Rights Reserved.</p>
+            <nav>
+                <a href="/">Home</a> |
+                <a href="/about">About</a> |
+                <a href="/services">Services</a> |
+                <a href="/contacts">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const burger = document.querySelector(".burger");
+            const navLinks = document.querySelector(".nav-links");
+    
+            burger.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+        });
+    </script>
+</body>
+</html>

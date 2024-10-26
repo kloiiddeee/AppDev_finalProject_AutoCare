@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/udash.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a class="active" href="#dashboard">Dashboard</a></li>
+                    <li><a href="#mechanic-profile">Mechanic Profile</a></li>
+                    <li><a href="#request-schedule">Request Schedule</a></li>
+                    <li><a href="#history">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/uprofile">Profile</a>
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section id="dashboard">
+                <h1>Dashboard</h1>
+                <p>Welcome to your dashboard.</p>
+            </section>
+
+            <!-- Mechanic Profile Content -->
+            <section id="mechanic-profile">
+                <h1>Mechanic Profile</h1>
+                <p>Here you can view mechanic profiles.</p>
+            </section>
+
+            <!-- Request Schedule Content -->
+            <section id="request-schedule">
+                <h1>Request Schedule</h1>
+                <p>Manage your service requests and schedules here.</p>
+            </section>
+
+            <!-- History Content -->
+            <section id="history">
+                <h1>History</h1>
+                <p>View your past requests and service history.</p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-hidden');
+        }
+
+
+        //..................Active link
+
+        const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+               
+                sidebarLinks.forEach(link => link.classList.remove('active'));
+               
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

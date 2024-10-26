@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/uprofile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#mechanic-profile">Mechanic Profile</a></li>
+                    <li><a href="#request-schedule">Request Schedule</a></li>
+                    <li><a href="#history">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/uprofile">Profile</a>
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            
+            <div class="form-container">
+                <h2>Update Profile</h2>
+                <form action="/uprofile" method="POST">
+                    <div class="form-group">
+                        <label for="fname">First Name:</label>
+                        <input type="text" name="fname" id="fname" placeholder="Enter your first name" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="lname">Last Name:</label>
+                        <input type="text" name="lname" id="lname" placeholder="Enter your last name" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" name="email" id="email" placeholder="Enter your email" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="contacts">Contact:</label>
+                        <input type="text" name="contacts" id="contacts" placeholder="Enter your contact number" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select name="gender" id="gender" required>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" name="address" id="address" placeholder="Enter your address" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" placeholder="Enter your username" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" placeholder="Enter your new password" required>
+                    </div>
+        
+                    <button type="submit" class="btn-submit">Update Profile</button>
+                </form>
+            </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-hidden');
+        }
+
+
+        //..................Active link
+
+        const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+               
+                sidebarLinks.forEach(link => link.classList.remove('active'));
+               
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

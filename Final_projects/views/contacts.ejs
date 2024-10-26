@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">AutoCare</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contacts">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+
+        <div class="overlay">
+            <h1>Contact Us</h1>
+            <p>Committed to Keeping You on the Road.</p>
+        </div>
+    </header>
+
+<!--........................ Start Content........................-->
+<div class="container">
+    <div class="item">
+        <div class="contact">
+            <div class="first-text">Let's get in touch</div>
+            <img src = "/images/contact.png" alt = "" class="image">
+            <div class="social-links">
+                <br>
+                <span class="second-text">Connect with us:</span>
+                <ul class="social-media">
+                    <li> <a href = "https://web.facebook.com"><i class='bx bxl-meta' ></i></a></li>
+                    <li> <a href = "https://www.youtube.com"><i class='bx bxl-youtube' ></i></a></li>
+                    <li> <a href = "https://www.instagram.com"><i class='bx bxl-instagram' ></i></a></li>
+                    <li> <a href = "https://mail.google.com"><i class='bx bxl-gmail' ></i></a></li>
+
+                </ul>
+            </div>
+        </div>
+        
+<div class="submit-form">
+        <h4 class = "third-text text">Contact Us</h4>
+        <form action ="" class ="forms">
+            <div class="input-box">
+                <input type = "text" class = "input" required>
+                <label for = "">Name</label>
+            </div>
+            <div class="input-box">
+                <input type = "email" class = "input" required>
+                <label for = "">Email</label>
+            </div>
+            <div class="input-box">
+                <input type = "tel" class = "input" required>
+                <label for = "">Phone</label>
+            </div>
+            <div class="input-box">
+                <textarea name = "" class = "input" required id ="message" cols ="30" rows="10"></textarea>
+                <label for = "">Message</label>
+            </div>
+            <input type="submit" class ="btn" value="Submit">
+        </form>
+    </div>
+</div>
+
+<!--........................Footer........................-->
+<footer class="fixed-bottom">
+    <p>Copyright &copy; 2024, IT students. All Rights Reserved. </p>
+</footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const burger = document.querySelector(".burger");
+            const navLinks = document.querySelector(".nav-links");
+    
+            burger.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
