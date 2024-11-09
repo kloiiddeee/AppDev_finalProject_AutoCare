@@ -1,0 +1,211 @@
+
+/*............................................vehicle type */
+.form-group select#vtype {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #333;
+    border-bottom-width: 2px;
+    background-size: 10px;
+}
+
+/*............................................Services type */
+.form-group select#stype {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #333;
+    border-bottom-width: 2px;
+    background-size: 10px;
+}
+
+/*............................................Description */
+.form-group select#des {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 18px;
+    background-color: #fff;
+   
+    color: #333;
+    border-bottom-width: 2px;
+    background-size: 10px;
+}
+.page-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.9);
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 60%;
+    margin-left: 8%;
+    
+}
+
+.form-container .title {
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.form-container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100px;
+    background: linear-gradient(90deg, #000, #6a12ce);
+}
+
+.form-container form .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 0 12px 0;
+    background: none;
+}
+
+form .user-details .form-group {
+    margin-bottom: 10px;
+    width: calc(100% / 2 - 20px);
+}
+
+.user-details .form-group .details {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.user-details .form-group input {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 18px;
+    border-bottom-width: 2px;
+}
+
+/*............................................gender type */
+.form-group select#gender {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #333;
+    border-bottom-width: 2px;
+    background-size: 10px;
+}
+
+form .button {
+    height: 45px;
+    margin: 20px 0;
+}
+
+form .button .but {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #000, #6a12ce);
+}
+
+form .button .but:hover {
+    background: linear-gradient(90deg, #6a12ce, #000);;
+}
+
+@media (max-width: 768px) {
+    .con {
+        max-width: 100%;
+    }
+
+    form .user-details .form-group{
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    form .user-details {
+        max-height: 300px;
+        overflow-y: auto; 
+    }
+
+    .user-details::-webkit-scrollbar {
+        width: 10px; 
+    }
+
+    .user-details::-webkit-scrollbar-thumb {
+        background: #888; 
+        border-radius: 10px; 
+    }
+
+    .user-details::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
+}
+
+/*.....................................history button.........................*/
+
+.btn {
+    padding: 0.2rem 0.2rem; 
+    border: none; 
+    border-radius: 0.25rem; 
+    text-decoration: none; 
+    
+    cursor: pointer; 
+}
+
+
+.btn.update {
+    background-color:  #6a12ce; 
+    color: white; 
+}
+
+.btn.update:hover {
+    background-color: #7a4a97; 
+}
+
+
+.btn.del {
+    background-color:  #000; 
+    color: white;
+}
+
+.btn.del:hover {
+    background-color: #444; 
+}
+
+.btn i {
+    margin-right: 0.5rem; /* Space between icon and text */
+    font-size: 1rem; /* Adjust size as needed */
+}
