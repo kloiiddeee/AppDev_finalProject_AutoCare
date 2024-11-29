@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+  
+    <header class="hero">
+        <nav class="navbar">
+            <div class="logo">AutoCare</div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contacts">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </nav>
+
+        <div class="overlay">
+            <h1>About Us</h1>
+            <p>Driven by Excellence, Fueled by Care.</p>
+        </div>
+    </header>
+
+   
+    <section class="about">
+        <div class="container">
+            <h2>Welcome to AutoCare</h2>
+            <p>
+                Welcome to AutoCare, your trusted partner in automotive care and maintenance. 
+                We are dedicated to providing top-notch services that ensure your vehicle operates at its best. 
+                From routine maintenance to complex repairs, our expert team is here to help you every step of the way.
+            </p>
+        </div>
+    </section>
+    
+    <section class="mission">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p>
+                At AutoCare, we are passionate about delivering quality service and ensuring customer satisfaction. 
+                Our mission is to provide reliable automotive solutions that keep your vehicle running smoothly. 
+                We strive to offer a transparent and hassle-free experience, combining expertise with exceptional customer service to meet all your automotive needs.
+            </p>
+        </div>
+    </section>
+    
+    <section class="sustainability">
+        <div class="container">
+            <h2>Sustainable Practices</h2>
+            <p>
+                We believe in sustainable practices that contribute to a healthier environment. 
+                At AutoCare, we utilize eco-friendly products and technologies to minimize our carbon footprint. 
+                Our commitment to sustainability extends to our community, as we work together to promote responsible vehicle ownership and maintenance.
+            </p>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="container">
+            <h2>Empowering Your Drive with Confidence./h2>
+            <p>
+                Discover the AutoCare difference—where quality meets reliability. 
+                Join us in taking care of your vehicle and ensuring a safe and enjoyable driving experience. We look forward to serving you!
+            </p>
+        </div>
+    </section>
+    
+
+<!--........................Footer........................-->   <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>Copyright &copy; 2024, IT students. All Rights Reserved.</p>
+            <nav>
+                <a href="/">Home</a> |
+                <a href="/about">About</a> |
+                <a href="/services">Services</a> |
+                <a href="/contacts">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const burger = document.querySelector(".burger");
+            const navLinks = document.querySelector(".nav-links");
+    
+            burger.addEventListener("click", () => {
+                navLinks.classList.toggle("active");
+            });
+        });
+    </script>
+</body>
+</html>

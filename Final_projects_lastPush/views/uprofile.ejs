@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/uprofile.css">
+   
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#mechanic-profile">Mechanic Profile</a></li>
+                    <li><a href="#request-schedule">Request Schedule</a></li>
+                    <li><a href="#history">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/uprofile">Profile</a>
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="link" id="profile">
+                <div class="page-center ">    
+                    <div class="form-container">
+                        <h2 class="title">Update Profile</h2>
+                        <form action="/uprofile/<%= user.id %>/update" method="POST">
+                            <div class="user-details">
+                                <div class="form-group">
+                                    <label for="fname" class="details">First Name:</label>
+                                    <input type="text" name="fname" id="fname" value="<%= user.fname %>" placeholder="Enter Firstname..." required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="lname" class="details">Last Name:</label>
+                                    <input type="text" name="lname" id="lname" value="<%= user.lname %>" placeholder="Enter Lastname..." required>
+                                </div>
+            
+                                <div class="form-group input-box">
+                                    <label for="email" class="details">Email:</label>
+                                    <input type="text" name="email" id="email" value="<%= user.email %>" placeholder="Enter Email..." required>
+                                </div>
+            
+                                <div class="form-group input-box">
+                                    <label for="contacts" class="details">Contact:</label>
+                                    <input type="text" name="contacts" id="contacts" value="<%= user.contacts %>" placeholder="Enter Contact No..." required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="gender" class="details">Gender:</label>
+                                    <select name="gender" id="gender" required>
+                                        <option value="male" <%= user.gender === 'male' ? 'selected' : '' %>>Male</option>
+                                        <option value="female" <%= user.gender === 'female' ? 'selected' : '' %>>Female</option>
+                                        <option value="prefer not to say" <%= user.gender === 'prefer not to say' ? 'selected' : '' %>>Prefer not to say</option>
+                                    </select>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="address" class="details">Address:</label>
+                                    <input type="text" name="address" id="address" value="<%= user.address %>" placeholder="Enter Address..." required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="username" class="details">Username:</label>
+                                    <input type="text" name="username" id="username" value="<%= user.username %>" placeholder="Enter Username..." required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="password" class="details">Password:</label>
+                                    <input type="password" name="password" id="password" placeholder="Enter New Password..." required>
+                                </div>
+                            </div>
+                            
+                            <div class="button">
+                                <button type="submit" class="but">Update Profile</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-hidden');
+        }
+
+
+        //..................Active link
+
+        const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+               
+                sidebarLinks.forEach(link => link.classList.remove('active'));
+               
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

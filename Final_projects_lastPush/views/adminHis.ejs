@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/uprofile.css">
+    <link rel="stylesheet" href="/css/reqform.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="/adminDash">Dashboard</a></li>
+                    <li><a href="/adminMech">Mechanic Profile</a></li>
+                    <li><a href="/adminUprofile">User Profile</a></li>
+                    <li><a href="/adminInv">Inventory</a></li>
+                    <li><a href="/adminReq">Request Schedule</a></li>
+                    <li><a href="/adminHis">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+<!------------------------------------------------------------History Content------------------------------------------------------------>
+                <div class="container mt-5">
+                    <h2 class="text-center">Completed Transactions</h2>
+            
+                    
+                    <div class="input-group mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search by First Name, Last Name, or Contact">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" onclick="searchTable()">Search</button>
+                        </div>
+                    </div>
+            
+                    <table class="table table-striped  table-sm small text-center" id="requestTable">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Contact</th>  
+                                <th>Address</th>    
+                                <th>Date Created</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Vehicle Type</th>
+                                <th>Service Type</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hisTableBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            
+
+
+
+<!--......................................Table for Request......................................-->
+        <script>
+            async function loadRequests() {
+                try {
+                    const response = await fetch('/get-all-requests'); 
+                    const requests = await response.json();
+
+                    const pendingRequests = requests.filter(request => request.status === 'Completed');
+                    
+                    const requestTableBody = document.getElementById('hisTableBody');
+                    requestTableBody.innerHTML = '';
+
+                    pendingRequests.forEach(request => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${request.first_name}</td>
+                            <td>${request.last_name}</td>
+                            <td>${request.contact}</td>  
+                            <td>${request.address}</td>  
+                            <td>${new Date(request.dCreated).toISOString().slice(0, 10)}</td>
+                            <td>${request.brand}</td>  
+                            <td>${request.model}</td>  
+                            <td>${request.vtype}</td>  
+                            <td>${request.stype}</td>  
+                            <td>${request.des}</td>   
+                            <td>${request.status}</td>
+                            <td>
+                                <a href="/view/${request.id}" class="btn update btn-sm">View</a>
+                                <a href="/view-del/${request.id}" class="btn del btn-sm" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                            </td>
+                        `;
+                        requestTableBody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error('Error loading requests:', error);
+                }
+            }
+        
+           
+            document.addEventListener('DOMContentLoaded', loadRequests);
+
+            
+        </script>
+        
+
+
+
+
+<!--......................................Hide href......................................-->
+        <script>
+            function showSection(sectionId) {
+                const sections = ['dashboard', 'mechanic-profile', 'user', 'user-profile', 'inventory', 'request-schedule', 'req', 'updateReq', 'history', 'profile'];
+                
+                sections.forEach(id => {
+                    const section = document.getElementById(id);
+                    if (section) {
+                        section.style.display = 'none'; 
+                    }
+                });
+
+                const activeSection = document.getElementById(sectionId);
+                if (activeSection) {
+                    activeSection.style.display = 'block'; 
+                }
+
+                const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`.sidebar nav ul li a[onclick="showSection('${sectionId}')"]`).classList.add('active');
+                
+                localStorage.setItem('activeSection', sectionId);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const activeSection = localStorage.getItem('activeSection') || 'dashboard';
+                showSection(activeSection); 
+            });
+        </script>
+
+
+
+<!--......................................Search......................................-->
+        <script>
+            function searchTable() {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("searchInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("requestTable");
+                tr = table.getElementsByTagName("tr");
+    
+                for (i = 1; i < tr.length; i++) {
+                    tr[i].style.display = "none";
+                    td = tr[i].getElementsByTagName("td");
+                    for (var j = 0; j < td.length - 1; j++) { 
+                        if (td[j]) {
+                            txtValue = td[j].textContent || td[j].innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+
+
+
+<!--......................................TogglesideBar......................................-->
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('sidebar-hidden');
+            }
+        </script>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

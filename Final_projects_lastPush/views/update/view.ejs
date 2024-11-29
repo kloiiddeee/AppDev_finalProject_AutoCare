@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/uprofile.css">
+    <link rel="stylesheet" href="/css/reqform.css">
+    <style>
+        .page-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.9);
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 60%;
+    margin-left: 8%;
+    
+}
+
+.form-container .title {
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.form-container .title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100px;
+    background: linear-gradient(90deg, #000, #6a12ce);
+}
+
+.form-container  .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px 0 12px 0;
+    background: none;
+}
+
+ .user-details .form-group {
+    margin-bottom: 8px;
+    width: calc(100% / 2 - 20px);
+}
+
+.user-details .form-group .details {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.user-details .form-group p {
+    padding-top: 10px;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 18px;
+    border-bottom-width: 2px;
+}
+
+    </style>
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="/adminDash">Dashboard</a></li>
+                    <li><a href="/adminMech">Mechanic Profile</a></li>
+                    <li><a href="/adminUprofile">User Profile</a></li>
+                    <li><a href="/adminInv">Inventory</a></li>
+                    <li><a href="/adminReq">Request Schedule</a></li>
+                    <li><a href="/adminHis">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+<!--.................................mechUpdate...........................................-->
+        <!------------------------------------------------------------Request Content------------------------------------------------------------>
+        <div class="link" id="viewReq">
+    <div class="page-center" style="background-color: white; padding: 20px; border-radius: 10px;">
+        <div class="form-container">
+            <div class="modal-header">
+                <h2 class="title">View Details</h2>
+                <a href="/adminHis" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            
+            <div class="user-details">
+                <div class="form-group">
+                    <label class="details">First Name:</label>
+                    <p id="first_name"><%= request.first_name %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Last Name:</label>
+                    <p id="last_name"><%= request.last_name %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Contact:</label>
+                    <p id="contact"><%= request.contact %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Address:</label>
+                    <p id="address"><%= request.address %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Date:</label>
+                    <p id="dCreated"><%= request.dCreated %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Brand:</label>
+                    <p id="brand"><%= request.brand %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Model:</label>
+                    <p id="model"><%= request.model %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Vehicle Type:</label>
+                    <p id="vtype"><%= request.vtype %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Service Type:</label>
+                    <p id="stype"><%= request.stype %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Description:</label>
+                    <p id="des"><%= request.des %></p>
+                </div>
+
+                <div class="form-group">
+                    <label class="details">Status:</label>
+                    <p id="status"><%= request.status %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        <script>
+            function closeUpdateForm() {
+                document.getElementById('updateReq').style.display = 'none'; 
+            }
+        
+            function openUpdateForm() {
+                document.getElementById('updateReq').style.display = 'block';
+            }
+        </script>
+        
+
+
+<!--......................................TogglesideBar......................................-->
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('sidebar-hidden');
+            }
+        </script>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
