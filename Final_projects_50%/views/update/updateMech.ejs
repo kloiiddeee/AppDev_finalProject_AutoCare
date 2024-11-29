@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/uprofile.css">
+    <link rel="stylesheet" href="/css/reqform.css">
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="/adminDash">Dashboard</a></li>
+                    <li><a href="/adminMech">Mechanic Profile</a></li>
+                    <li><a href="/adminUprofile">User Profile</a></li>
+                    <li><a href="/adminInv">Inventory</a></li>
+                    <li><a href="/adminReq">Request Schedule</a></li>
+                    <li><a href="/adminHis">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+<!--.................................mechUpdate...........................................-->
+                <div class="link" id="updateMech">
+                    <div class="page-center" style="background-color: white; padding: 20px; border-radius: 10px;">
+                        <div class="form-container">
+                            <div class="modal-header">
+                                <a href="/adminUprofile" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                        <h2 class="title"> Update Request</h2>
+                                <form action="/updateMech/<%= mechanic.id %>" method="POST">
+                                    <input type="hidden" name="id" value="<%= mechanic.id %>">
+
+                                    <div class="user-details">
+                                        <div class="form-group">
+                                            <label for="updateFirstName">First Name</label>
+                                            <input type="text" class="form-control"value="<%= mechanic.first_name %>" id="updateFirstName" name="first_name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateLastName">Last Name</label>
+                                            <input type="text" class="form-control" value="<%= mechanic.last_name %>" id="updateLastName" name="last_name" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateContact">Contact</label>
+                                            <input type="text" class="form-control" value="<%= mechanic.contact %>" id="updateContact" name="contact" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateGender">Gender</label>
+                                            <select class="form-control" id="updateGender" name="gender" required>
+                                                <option value="Male" <%= mechanic.gender === "Male" ? "selected" : "" %>>Male</option>
+                                                <option value="Female" <%= mechanic.gender === "Female" ? "selected" : "" %>>Female</option>
+                                                <option value="Other" <%= mechanic.gender === "Other" ? "selected" : "" %>>Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateAddress">Address</label>
+                                            <input type="text" class="form-control" value="<%= mechanic.address %>" id="updateAddress" name="address" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateSkills">Skills</label>
+                                            <textarea class="form-control" id="updateSkills" name="skills" rows="4" required><%= mechanic.skills %></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="updateAvailability">Availability</label>
+                                            <select class="form-control" id="updateAvailability" name="availability" required>
+                                                <option value="Available" <%= mechanic.availability === "Available" ? "selected" : "" %>>Available</option>
+                                                <option value="Not Available" <%= mechanic.availability === "Not Available" ? "selected" : "" %>>Not Available</option>
+                                            </select>
+                                        </div>
+                                    
+                                    
+                                    <div class="button">
+                                        <button type="submit" class="but">Update Request</button>
+                                    </div>
+                                </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+<!--......................................TogglesideBar......................................-->
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('sidebar-hidden');
+            }
+        </script>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

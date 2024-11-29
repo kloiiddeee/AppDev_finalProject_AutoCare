@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/css/uprofile.css">
+    <link rel="stylesheet" href="/css/reqform.css">
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="/adminDash">Dashboard</a></li>
+                    <li><a href="/adminMech">Mechanic Profile</a></li>
+                    <li><a href="/adminUprofile">User Profile</a></li>
+                    <li><a href="/adminInv">Inventory</a></li>
+                    <li><a href="/adminReq">Request Schedule</a></li>
+                    <li><a href="/adminHis">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+<!--.................................mechUpdate...........................................-->
+        <!------------------------------------------------------------Request Content------------------------------------------------------------>
+        <div class="link" id="updateReq">
+            <div class="page-center" style="background-color: white; padding: 20px; border-radius: 10px;">
+                <div class="form-container">
+                    <div class="modal-header">
+                        <a href="/adminReq" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                    </div>
+                    <h2 class="title"> Update Request</h2>
+                    <form action="/updateSched/<%= request.id %>" method="POST">
+                        <input type="hidden" name="id" value="<%= request.id %>">
+
+                        <div class="user-details">
+                            <div class="form-group">
+                                <label for="first_name" class="details">First Name:</label>
+                                <input type="text" name="first_name" value="<%= request.first_name %>" id="first_name" placeholder="Enter Firstname..." required>
+                            </div>
+                
+                            <div class="form-group ">
+                                <label for="last_name" class="details">Last Name:</label>
+                                <input type="text" name="last_name" value="<%= request.last_name %>" id="last_name" placeholder="Enter Lastname..." required>
+                            </div>
+                
+                
+                            <div class="form-group input-box">
+                                <label for="contact" class="details">Contact:</label>
+                                <input type="text" name="contact" value="<%= request.contact %>" id="contact" placeholder="Enter Contact No..." required>
+                            </div>
+                
+                            <div class="form-group">
+                                <label for="address" class="details">Address:</label>
+                                <input type="text" name="address" value="<%= request.address %>"  id="address" placeholder="Enter Address..." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dCreated" class="details">Date:</label>
+                                <input type="date" name="dCreated" value="<%= request.dCreated %>" id="dCreated" required>
+                            </div>
+
+                            <div class="form-group ">
+                                <label for="brand" class="details">Brand:</label>
+                                <input type="text" name="brand" value="<%= request.brand %>" id="brand" placeholder="Enter Brand..." required>
+                            </div>
+                
+                            <div class="form-group ">
+                                <label for="model" class="details">Model:</label>
+                                <input type="text" name="model" value="<%= request.model %>" id="model" placeholder="Enter Model..." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vtype" class="details">Vehicle Type:</label>
+                                <select name="vtype" id="vtype" required>
+                                    <option value="4 Wheels" <% if (request.vtype === '4 Wheels') { %>selected<% } %>>4 Wheels</option>
+                                    <option value="3 Wheels" <% if (request.vtype === '3 Wheels') { %>selected<% } %>>3 Wheels</option>
+                                    <option value="2 Wheels" <% if (request.vtype === '2 Wheels') { %>selected<% } %>>2 Wheels</option>
+                                </select>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="stype" class="details">Service Type:</label>
+                                <select name="stype" id="stype" required>
+                                    <option value="Pick Up" <% if (request.stype === 'Pick Up') { %>selected<% } %>>Pick Up</option>
+                                    <option value="Home Service" <% if (request.stype === 'Home Service') { %>selected<% } %>>Home Service</option>
+                                </select>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="des" class="details">Description:</label>
+                                <select name="des" id="des" required>
+                                    <option value="Autotune" <% if (request.des === 'Autotune') { %>selected<% } %>>Autotune</option>
+                                    <option value="Change Tires" <% if (request.des === 'Change Tires') { %>selected<% } %>>Change Tires</option>
+                                    <option value="Change Oil" <% if (request.des === 'Change Oil') { %>selected<% } %>>Change Oil</option>
+                                    <option value="Car Paint" <% if (request.des === 'Car Paint') { %>selected<% } %>>Car Paint</option>
+                                    <option value="Tinted" <% if (request.des === 'Tinted') { %>selected<% } %>>Tinted</option>
+                                    <option value="Lights" <% if (request.des === 'Lights') { %>selected<% } %>>Lights</option>
+                                </select>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="status" class="details">Status:</label>
+                                <select name="status" id="status" required>
+                                    <option value="Pending" <% if (request.status === 'Pending') { %>selected<% } %>>Pending</option>
+                                    <option value="Completed" <% if (request.status === 'Completed') { %>selected<% } %>>Completed</option>
+                                    <option value="Cancelled" <% if (request.status === 'Cancelled') { %>selected<% } %>>Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        
+                        <div class="button">
+                            <button type="submit" class="but">Update Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            function closeUpdateForm() {
+                document.getElementById('updateReq').style.display = 'none'; 
+            }
+        
+            function openUpdateForm() {
+                document.getElementById('updateReq').style.display = 'block';
+            }
+        </script>
+        
+
+
+<!--......................................TogglesideBar......................................-->
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('sidebar-hidden');
+            }
+        </script>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
