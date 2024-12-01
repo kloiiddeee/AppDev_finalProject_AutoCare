@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/css/uprofile.css">
+    <link rel="stylesheet" href="/css/reqform.css">
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar sidebar-hidden" id="sidebar">
+            <h2>Dashboard</h2>
+            <nav>
+                <ul>
+                    <li><a href="/adminDash">Dashboard</a></li>
+                    <li><a href="/adminMech">Mechanic Profile</a></li>
+                    <li><a href="/adminUprofile">User Profile</a></li>
+                    <li><a href="/adminInv">Inventory</a></li>
+                    <li><a href="/adminReq">Request Schedule</a></li>
+                    <li><a href="/adminHis">History</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar">
+                <div class="user-profile">
+                    <img src="/images/profile.jpg" alt="User Profile" class="profile-pic">
+                    <div class="dropdown">
+                        <button class="dropbtn">User Profile</button>
+                        <div class="dropdown-content">
+                            <a href="/">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+
+<!--.................................mechUpdate...........................................-->
+                <div class="link" id="updateInv">
+                    <div class="page-center" style="background-color: white; padding: 20px; border-radius: 10px;">
+                        <div class="form-container">
+                            <div class="modal-header">
+                                <h2 class="title"> Update Item</h2>
+                                <a href="/adminInv" class="close" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </div>
+                            <form action="/updateInv/<%= item.id %>" method="POST">
+                                <input type="hidden" name="id" value="<%= item.id %>">
+                                
+                            <div class="user-details">
+                                <div class="form-group">
+                                    <label for="updateName">Item Name</label>
+                                    <input type="text" class="form-control" id="updateName" name="name" value="<%= item.name %>" required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="updateBrand">Brand</label>
+                                    <input type="text" class="form-control" id="updateBrand" name="brand" value="<%= item.brand %>" required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="updatePartType">Vehicle Type</label>
+                                    <select class="form-control" id="updatePartType" name="part_type" required>
+                                        <option value="Car" <%= item.part_type === 'Car' ? 'selected' : '' %>>Car</option>
+                                        <option value="Motorcycle" <%= item.part_type === 'Motorcycle' ? 'selected' : '' %>>Motorcycle</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="updateItemType">Item Type</label>
+                                    <input type="text" class="form-control" id="updateItemType" name="item_type" value="<%= item.item_type %>" required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="updateQuantity">Quantity</label>
+                                    <input type="number" class="form-control" id="updateQuantity" name="quantity" value="<%= item.quantity %>" required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="updatePrice">Price</label>
+                                    <input type="number" class="form-control" id="updatePrice" name="price" step="0.01" value="<%= item.price %>" required>
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="updatePictureUrl">Picture URL</label>
+                                    <input type="url" class="form-control" id="updatePictureUrl" name="picture_url" value="<%= item.picture_url %>">
+                                </div>
+                            </div>
+
+                                <div class="button">
+                                     <button type="submit" class="but">Update Request</button>
+                                </div>
+                          
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!--......................................TogglesideBar......................................-->
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                sidebar.classList.toggle('sidebar-hidden');
+            }
+        </script>
+
+
+<script>
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const updateStatus = urlParams.get('update');
+    const deleteStatus = urlParams.get('delete');
+
+    
+    if (updateStatus === 'success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Item Updated Successfully',
+            text: 'The inventory item was updated successfully!',
+            confirmButtonText: 'OK'
+        });
+    } else if (updateStatus === 'failed') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'There was an error updating the inventory item.',
+            confirmButtonText: 'Try Again'
+        });
+    }
+
+    // Success or Failure message for Delete
+    if (deleteStatus === 'success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Item Deleted Successfully',
+            text: 'The inventory item was deleted successfully!',
+            confirmButtonText: 'OK'
+        });
+    } else if (deleteStatus === 'failed') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Delete Failed',
+            text: 'There was an error deleting the inventory item.',
+            confirmButtonText: 'Try Again'
+        });
+    }
+</script>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
