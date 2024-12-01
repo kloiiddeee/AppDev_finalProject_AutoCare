@@ -1,6 +1,6 @@
 const inventoryModel = require('../models/invModel');
 
-// Add new inventory item
+//............................................ addItem
 const addInventory = (req, res) => {
     const { name, part_type, item_type, brand, quantity, price, picture_url } = req.body;
 
@@ -14,12 +14,12 @@ const addInventory = (req, res) => {
         });
 };
 
-// Get all inventory items
+//............................................ Display Items
 const getInventory = async (req, res) => {
     try {
-        const [inventory] = await inventoryModel.getAllInventory();
-        console.log(inventory);  // Log the inventory data to check if it is fetched correctly
-        res.json(inventory);  // Send JSON data instead of rendering a view
+        const [rows] = await inventoryModel.getAllInventory();
+        console.log('Fetched inventory data:', rows);
+        res.json(rows);
     } catch (error) {
         console.error('Error fetching inventory:', error);
         res.status(500).send('Error fetching inventory');
@@ -27,7 +27,7 @@ const getInventory = async (req, res) => {
 };
 
 
-// Get a single inventory item by ID
+//............................................ get Item by Id
 const getInventoryItem = async (req, res) => {
     const { id } = req.params;
     try {
@@ -38,39 +38,40 @@ const getInventoryItem = async (req, res) => {
             return res.status(404).send('Inventory item not found');
         }
 
-        res.render('update/updateInventory', { item });
+        res.render('update/updateInv', { item });
     } catch (error) {
         console.error('Error fetching inventory item:', error);
         res.status(500).send('Error fetching inventory item');
     }
 };
 
-// Update an inventory item
+//............................................ update items
 const updateInventory = (req, res) => {
     const { id } = req.params;
     const { name, part_type, item_type, brand, quantity, price, picture_url } = req.body;
 
     inventoryModel.updateInventory(id, name, part_type, item_type, brand, quantity, price, picture_url)
         .then(() => {
-            res.redirect('/adminInv');
+            res.redirect('/adminInv?update=success');
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).send('Error updating inventory item');
+            res.redirect('/adminInv?update=failed');
         });
 };
 
-// Delete an inventory item
+
+//............................................ delete items
 const deleteInventory = (req, res) => {
     const { id } = req.params;
 
     inventoryModel.deleteInventory(id)
         .then(() => {
-            res.redirect('/adminInv');
+            res.redirect('/adminInv?delete=success');
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).send('Error deleting inventory item');
+            res.redirect('/adminInv?delete=failed');
         });
 };
 
