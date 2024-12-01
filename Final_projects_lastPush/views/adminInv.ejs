@@ -9,39 +9,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/css/uprofile.css">
     <link rel="stylesheet" href="/css/reqform.css">
-
     <style>
         .card-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
+            flex-wrap: wrap; 
+            justify-content: flex-start; 
         }
         .inventory-card {
-            width: 300px;
-            border: 1px solid #ddd;
+            width: 200px;
+            border: 2px solid #2b2929;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 10px;
             transition: transform 0.2s;
+            font-size: 14px; 
         }
+    
         .inventory-card:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
+    
         .inventory-card img {
             width: 100%;
-            height: 200px;
+            height: 120px; 
             object-fit: cover;
         }
+    
         .inventory-card-body {
-            padding: 15px;
+            padding: 10px; 
         }
+    
+        .inventory-card-body h5 {
+            font-size: 18px; 
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-align: center; 
+        }
+    
+        .inventory-card-body p {
+            margin: 0;
+            color: #555; 
+        }
+    
         .inventory-card-actions {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 15px;
+            padding: 10px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+    
+        .inventory-card-actions a {
+            padding: 5px 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            border-radius: 5px; 
         }
     </style>
+    
 </head>
 <body>
     <div class="dashboard-container">
@@ -89,28 +114,16 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Search by Name or Brand">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search by Name or Brand" oninput="searchTable()">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" onclick="searchTable()">Search</button>
                     </div>
                 </div>
 
-                <table class="table table-striped table-bordered table-sm small text-center" id="inventoryTable">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Name</th>
-                            <th>Part Type</th>
-                            <th>Item Type</th>
-                            <th>Brand</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="invTableBody">
-                        
-                    </tbody>
-                </table>
+                <div class="card-container" id="inventoryCards">
+                    
+                </div> 
+                
             </div>
         </div>
     </div>
@@ -132,25 +145,30 @@
                 </div>
                 <div class="modal-body">
                     <form action="/addInventory" method="POST">
+
                         <div class="form-group">
                             <label for="name">Item Name</label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
+
                         <div class="form-group">
-                            <label for="partType">Part Type</label>
+                            <label for="partType">Vehicle Type</label>
                             <select class="form-control" id="partType" name="part_type" required>
-                                <option value="car">Car</option>
-                                <option value="motorcycle">Motorcycle</option>
+                                <option value="Car">Car</option>
+                                <option value="Motorcycle">Motorcycle</option>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label for="itemType">Item Type</label>
                             <input type="text" class="form-control" id="itemType" name="item_type" required>
                         </div>
+
                         <div class="form-group">
                             <label for="brand">Brand</label>
                             <input type="text" class="form-control" id="brand" name="brand" required>
                         </div>
+
                         <div class="form-group">
                             <label for="quantity">Quantity</label>
                             <input type="number" class="form-control" id="quantity" name="quantity" required>
@@ -177,34 +195,47 @@
 
     <script>
         async function loadInventory() {
-    try {
-        const response = await fetch('/get-all-inventory');
-        const inventory = await response.json();
-        console.log(inventory);  // Log the inventory data to check if it's correct
+            try {
+                const response = await fetch('/get-all-inventory');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-        const inventoryTableBody = document.getElementById('invTableBody');
-        inventoryTableBody.innerHTML = ''; 
+                const inventory = await response.json();
+                console.log('Fetched inventory:', inventory);
 
-        inventory.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.part_type}</td>
-                <td>${item.item_type}</td>
-                <td>${item.brand}</td>
-                <td>${item.quantity}</td>
-                <td>$${item.price.toFixed(2)}</td>
-                <td>
-                    <a href="/updateInventory/${item.id}" class="btn update btn-sm">Update</a>
-                    <a href="/deleteInventory/${item.id}" class="btn del btn-sm" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
-                </td>
-            `;
-            inventoryTableBody.appendChild(row);
-        });
-    } catch (error) {
-        console.error('Error loading inventory:', error);
-    }
-}
+                const cardContainer = document.getElementById('inventoryCards');
+                cardContainer.innerHTML = ''; 
+
+                inventory.forEach(item => {
+                    const card = document.createElement('div');
+                    card.classList.add('inventory-card');
+
+                    const imageUrl = item.picture_url ? item.picture_url : '/images/default-image.jpg';
+
+                    card.innerHTML = `
+                        <img src="${imageUrl}" alt="${item.name}">
+                        <div class="inventory-card-body">
+                            <h5>${item.name}</h5>
+                            <p>Brand: ${item.brand}</p>
+                            <p>Type: ${item.part_type}</p>
+                            <p>Item Type: ${item.item_type}</p>
+                            <p>Qty: ${item.quantity}</p>
+                            <p>Price: $${parseFloat(item.price).toFixed(2)}</p>
+                        </div>
+                        <div class="inventory-card-actions text-center">
+                            <a href="/updateInv/${item.id}" class="btn update btn-sm">Update</a>
+                            <a href="/deleteInv/${item.id}" class="btn del btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                        </div>
+                    `;
+
+                    cardContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+                alert('Error loading inventory. Please try again later.');
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', loadInventory);
     </script>
@@ -213,22 +244,26 @@
 <!--......................................Search......................................-->
         <script>
             function searchTable() {
-                var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("searchInput");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("inventoryTable");
-                tr = table.getElementsByTagName("tr");
+                const input = document.getElementById("searchInput").value.toUpperCase();
+                const cardContainer = document.getElementById("inventoryCards");
+                const cards = cardContainer.getElementsByClassName("inventory-card");
 
-                for (i = 1; i < tr.length; i++) {
-                    tr[i].style.display = "none";
-                    td = tr[i].getElementsByTagName("td");
-                    for (var j = 0; j < td.length - 1; j++) { 
-                        if (td[j]) {
-                            txtValue = td[j].textContent || td[j].innerText;
-                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                tr[i].style.display = "";
-                                break;
-                            }
+                if (input === "") {
+                    // If empty, show all cards
+                    for (let i = 0; i < cards.length; i++) {
+                        cards[i].style.display = ""; 
+                    }
+                } else {
+
+                    for (let i = 0; i < cards.length; i++) {
+                        const cardBody = cards[i].getElementsByClassName("inventory-card-body")[0];
+                        const name = cardBody.querySelector("h5").innerText.toUpperCase();
+                        const brand = cardBody.querySelector("p:nth-child(2)").innerText.toUpperCase();
+
+                        if (name.includes(input) || brand.includes(input)) {
+                            cards[i].style.display = ""; 
+                        } else {
+                            cards[i].style.display = "none"; 
                         }
                     }
                 }
@@ -244,7 +279,44 @@
             }
         </script>
 
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const updateStatus = urlParams.get('update');
+    const deleteStatus = urlParams.get('delete');
 
+    
+    if (updateStatus === 'success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Item Updated Successfully',
+            text: 'The inventory item was updated successfully!',
+            confirmButtonText: 'OK'
+        });
+    } else if (updateStatus === 'failed') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'There was an error updating the inventory item.',
+            confirmButtonText: 'Try Again'
+        });
+    }
+
+    if (deleteStatus === 'success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Item Deleted Successfully',
+            text: 'The inventory item was deleted successfully!',
+            confirmButtonText: 'OK'
+        });
+    } else if (deleteStatus === 'failed') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Delete Failed',
+            text: 'There was an error deleting the inventory item.',
+            confirmButtonText: 'Try Again'
+        });
+    }
+</script>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
