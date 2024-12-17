@@ -13,7 +13,7 @@ exports.sendContactEmail = async (req, res) => {
 
     let mailOptions = {
         from: email,
-        to: 'fesalboncloyd09@gmail.com',
+        to: '',
         subject: 'AutoCare Feedbacks',
         text: `
             Name: ${name}
