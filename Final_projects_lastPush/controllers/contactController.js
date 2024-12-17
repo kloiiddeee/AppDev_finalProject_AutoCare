@@ -6,8 +6,8 @@ exports.sendContactEmail = async (req, res) => {
     let transporter = nodemailer.createTransport({
         service: 'gmail', 
         auth: {
-            user: 'fesalboncloyd09@gmail.com',
-            pass: 'oluq aptv tdli tcly'
+            user: '',
+            pass: ''
         }
     });
 
